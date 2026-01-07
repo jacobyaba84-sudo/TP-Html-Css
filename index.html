@@ -37,9 +37,14 @@
             text-decoration: none;
             color: inherit;
         }
+        
+        /* AJOUT IMPORTANT : Pour que les images ne dépassent jamais */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
 
-        /* Conteneurs de section réutilisables (POUR CLASSES, ACTIVITÉS, CONTACT) */
-        /* MARGE VERTICALE ORIGINALE RESTAURÉE (160px) */
+        /* Conteneurs de section réutilisables */
         .section-container {
             margin: 160px 200px; 
             animation: fadeInUp 0.8s ease-out forwards;
@@ -186,7 +191,7 @@
             background: var(--gradient);
         }
 
-        /* --- Styles de Titres de Section (Réutilisables) --- */
+        /* --- Styles de Titres de Section --- */
 
         .section-header p { 
             font-size: 14px;
@@ -210,13 +215,12 @@
             margin: 20px 0 30px 0; 
         }
 
-        /* Centrage du séparateur pour les sections comme Classes et Activités */
         .project .section-separator, .services .section-separator {
             margin: 0 auto 50px;
         }
 
         /* =================================================================== */
-        /* --- Section Accueil (Home) : OPTIMISATION CONSERVÉE --- */
+        /* --- Section Accueil (Home) --- */
         /* =================================================================== */
 
         .home {
@@ -351,7 +355,7 @@
 
 
         /* =================================================================== */
-        /* --- Section À Propos (About) : OPTIMISATION CONSERVÉE --- */
+        /* --- Section À Propos (About) --- */
         /* =================================================================== */
 
         .about {
@@ -883,7 +887,7 @@
             opacity: 0.8;
         }
 
-        /* Back to Top Button (CSS pur avec ancre) */
+        /* Back to Top Button */
         .back-to-top {
             position: fixed;
             bottom: 40px;
@@ -914,53 +918,111 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
         }
 
-        /* Responsive */
+        /* =================================================================== */
+        /* --- NOUVEAU CODE RESPONSIVE (POUR TÉLÉPHONE & TABLETTE) --- */
+        /* =================================================================== */
+
+        /* TABLETTES & PETITS PC (Max 1024px) */
         @media (max-width: 1024px) {
-            .home, .about, .project, .services, .contact {
-                margin: 120px 50px;
+            /* On réduit les marges énormes de 200px à 50px */
+            .section-container, .project, .services, .contact {
+                margin: 100px 50px;
             }
 
-            .home-container, .about-container, .contact-content {
+            .home, .about {
+                padding: 100px 50px;
+            }
+
+            /* On passe les éléments côte à côte en colonne verticale */
+            .home-container, 
+            .about-container, 
+            .contact-content {
                 flex-direction: column;
                 gap: 3rem;
             }
 
-            .home img, .about img {
+            /* On centre les images et on limite leur taille */
+            .home-section img, 
+            .about img {
                 width: 100%;
-                max-width: 400px;
+                max-width: 500px;
+                height: auto;
                 margin: 0 auto;
+                display: block;
+            }
+            
+            .info-pb {
+                width: 100%;
+                justify-content: center;
             }
 
-            .ul-list {
-                flex-wrap: wrap;
-                gap: 1rem;
-                padding: 8px 15px;
-            }
-
-            .info-home h1 {
-                font-size: 50px;
-            }
-
-            .info-home h3 {
-                font-size: 28px;
+            .info-pa {
+                width: 100%;
             }
         }
 
+        /* MOBILES (Max 768px) */
         @media (max-width: 768px) {
+            
+            /* 1. HEADER : On ne le cache plus ! On l'adapte */
             header {
-                display: none;
+                display: block; /* Important : on le garde visible */
+                position: relative; /* On le décolle du haut pour éviter qu'il mange l'écran */
+                padding: 10px;
+                animation: none; /* Pas d'anim sur mobile pour aller vite */
             }
 
-            .home, .about, .project, .services, .contact {
-                margin: 100px 20px;
+            .ul-list {
+                gap: 10px;
+                padding: 10px;
+                justify-content: center;
+                flex-wrap: wrap; /* Permet aux boutons de passer à la ligne */
             }
 
-            .info-home h1 {
-                font-size: 35px;
+            .ul-list li {
+                padding: 8px 12px;
+                font-size: 13px; /* Texte plus petit */
             }
 
-            .info-home h3 {
-                font-size: 22px;
+            /* 2. MARGES : On réduit encore pour le téléphone */
+            .section-container, .project, .services, .contact {
+                margin: 60px 20px;
+            }
+
+            .home, .about {
+                padding: 40px 20px;
+                min-height: auto; /* On enlève la hauteur forcée */
+            }
+
+            /* 3. TYPOGRAPHIE : Titres plus petits pour éviter qu'ils cassent */
+            .entete1 h1, 
+            .section-header h1,
+            .project h1,
+            .services h1,
+            .contact h1 {
+                font-size: 32px; /* Beaucoup plus lisible sur mobile */
+            }
+
+            .info-pa h3 {
+                font-size: 24px;
+            }
+
+            /* 4. SECTIONS SPÉCIFIQUES */
+            
+            /* Accueil */
+            .info-h {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .btnn {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-home1, .btn-home2 {
+                width: 100%; /* Boutons pleine largeur */
+                text-align: center;
             }
 
             .info-p2 {
@@ -968,30 +1030,59 @@
                 gap: 10px;
             }
 
-            .btnn {
-                flex-direction: column;
+            /* À Propos */
+            .about-top-row {
+                flex-direction: column-reverse; /* Met l'image au dessus ou en dessous */
+                gap: 2rem;
+            }
+            
+            .card {
+                grid-template-columns: 1fr; /* Une seule colonne pour les cartes */
             }
 
-            .btn-home1, .btn-home2 {
-                width: 100%;
-            }
-
-            .projects-container, .services-container {
-                grid-template-columns: 1fr;
-            }
-
+            /* Contact */
             .contact-content {
                 flex-direction: column;
             }
 
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 16px; /* Évite le zoom automatique sur iPhone */
+            }
+
+            /* Footer */
             .footer-links {
                 flex-direction: column;
                 gap: 15px;
             }
-
+            
+            /* Bouton retour en haut */
             .back-to-top {
                 bottom: 20px;
                 right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* TRÈS PETITS ÉCRANS (Max 480px) */
+        @media (max-width: 480px) {
+            /* On cache le texte du menu pour ne garder que les icônes si l'écran est minuscule */
+            .ul-list li a {
+                display: none;
+            }
+            
+            .ul-list li i {
+                font-size: 18px;
+                margin: 0;
+            }
+
+            .ul-list {
+                gap: 15px;
+            }
+            
+            .home-p {
+                font-size: 12px;
             }
         }
     </style>
@@ -1127,8 +1218,7 @@
         </div>
     </section>
 
-   <!-- Classes Section -->
-    <section class="project" id="project">
+   <section class="project" id="classes">
         <p>NOS CLASSES</p>
         <h1>Niveaux d'Enseignement</h1>
         <hr>
@@ -1203,8 +1293,7 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
+    <section class="services" id="activites">
         <p>NOS ACTIVITÉS</p>
         <h1>Activités Parascolaires</h1>
         <hr>
@@ -1247,7 +1336,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="contact" id="contact">
         <p>CONTACTEZ-NOUS</p>
         <h1>Prenez Contact Avec Nous</h1>
@@ -1309,15 +1397,14 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <h2 class="footer-logo">Les Petits Génies</h2>
             <ul class="footer-links">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#about">À Propos</a></li>
-                <li><a href="#project">Classes</a></li>
-                <li><a href="#services">Activités</a></li>
+                <li><a href="#classes">Classes</a></li>
+                <li><a href="#activites">Activités</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="footer-social">
@@ -1330,7 +1417,6 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <a href="#home" class="back-to-top">
         <i class="fa-solid fa-chevron-up"></i>
     </a>
